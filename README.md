@@ -9,24 +9,24 @@ High level procedure
 
 We are currently targeting an off-line approach:
 
-# The robot records a trajectory, saving pairs of photo + pose
-  periodically. (using rosbag record)
-# The recording is processed to generate a more processing friendly
-  format.
-# We pick some poses randomly or manually. (In our tests the pictures
-  were manually filtered to avoid showing undesired images). JPG files
-  are generated from these poses.
-# The pictures are served in a web server and a CSV file useful to
-  create the HITs in mturk is created.
-# The HITs are manually posted using the generated CSV, in a very simple
-  procedure.
-# When the HITs are completed, we manually download the results CSV.
-# Using the results we create a probabilistic grid, containing the
-  probability of finding each tag in every tagged cell.
-# We extract a data base which has the most probable location for every
-  tag in the map.
-# We serve that information through a web interface, which can send the
-  robot to the desired tag.
+1. The robot records a trajectory, saving pairs of photo + pose
+   periodically. (using rosbag record)
+2. The recording is processed to generate a more processing friendly
+   format.
+3. We pick some poses randomly or manually. (In our tests the pictures
+   were manually filtered to avoid showing undesired images). JPG files
+   are generated from these poses.
+4. The pictures are served in a web server and a CSV file useful to
+   create the HITs in mturk is created.
+5. The HITs are manually posted using the generated CSV, in a very simple
+   procedure.
+6. When the HITs are completed, we manually download the results CSV.
+7. Using the results we create a probabilistic grid, containing the
+   probability of finding each tag in every tagged cell.
+8. We extract a data base which has the most probable location for every
+   tag in the map.
+10. We serve that information through a web interface, which can send the
+    robot to the desired tag.
 
 Scripts
 -------
