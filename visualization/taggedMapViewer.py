@@ -27,7 +27,9 @@ ma = MarkerArray()
 for num, pair in enumerate(pairs):
     pv = PoseViz(pair)
     marker = pv.create_marker(num, all_tags)
+    arrow = pv.create_pose(num+len(pairs), all_tags)
     ma.markers.append(marker)
+    ma.markers.append(arrow)
 
 mv = MapViz(tag_map)
 tags_probs = mv.get_maker_array(pairs, all_tags)

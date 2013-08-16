@@ -1,3 +1,6 @@
+import tf.transformations
+
+
 class ImagePosePair(object):
     def __init__(self, image, pose):
         self.img = image.data
@@ -33,8 +36,12 @@ class ImagePosePair(object):
     def pose_to_coord(self):
         x = self.pose.position.x
         y = self.pose.position.y
-        t = self.pose.orientation.z
-        return (x, y, t)
+        quat = self.pose.orientation
+        quat = [quat.x, quat.y, quat.z, quat.w]
+        euler = tf.transformations.euler_from_quaternion(quat)
+        t = euler[2]
+
+        return (x, t, y)
 
     # This methods are needed to use pickle to serialize the
     # ImagePosePair object. ROS msg break pickle.
@@ -47,7 +54,7 @@ class ImagePosePair(object):
         xo = self.pose.orientation.x
         yo = self.pose.orientation.y
         zo = self.pose.orientation.z
-        wo = self.pose.orientation.y
+        wo = self.pose.orientation.w
 
         pose = {'position': (xp, yp, zp),
                 'orientation': (xo, yo, zo, wo)}

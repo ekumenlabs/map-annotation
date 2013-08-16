@@ -67,7 +67,7 @@ class MapViz(object):
             for index, prob in enumerate(probs):
                 r, g, b = colors[index]
                 col = ColorRGBA(r, g, b, 1.0 / prob * float(ntags))
-                x, y, t = point
+                x, t, y = point
                 markers[index].points.append(Point(x, y, z))
                 markers[index].colors.append(col)
 
@@ -95,6 +95,24 @@ class PoseViz(object):
         marker.scale.x = 0.1
         marker.scale.y = 0.1
         marker.scale.z = 0.1
+        marker.color.a = 1
+        marker.pose = self.pp.pose
+        tag_str = [all_tags[i] for i in self.pp.tags]
+        marker.text = '\n'.join(tag_str)
+        return marker
+
+    def create_pose(self, marker_id, all_tags):
+        marker = Marker()
+        marker.header.stamp = rospy.Time.now()
+        marker.header.frame_id = "/map"
+        marker.type = marker.ARROW
+        marker.id = marker_id
+        marker.action = marker.ADD
+        marker.ns = 'arrow'
+        #marker.lifetime = 0
+        marker.scale.x = 0.5
+        marker.scale.y = 0.05
+        marker.scale.z = 0.05
         marker.color.a = 1
         marker.pose = self.pp.pose
         tag_str = [all_tags[i] for i in self.pp.tags]

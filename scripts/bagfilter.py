@@ -51,4 +51,4 @@ if num_pose is not None:
     for num in sampledpairs:
         name = outdir + str(num).zfill(3)
         pair = pairs[num]
-        pair.write_files(name)
+        pair.write_files(name, write_pose=True)

@@ -42,7 +42,9 @@ for num, pair in enumerate(sampledpairs):
     pair.add_tags(ws_i)
     pv = PoseViz(pair)
     marker = pv.create_marker(num, all_tags)
+    arrow = pv.create_pose(num, all_tags)
     ma.markers.append(marker)
+    ma.markers.append(arrow)
 
 
 tag_map = TaggedMap(0.1, all_tags)

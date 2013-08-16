@@ -1,6 +1,7 @@
 import sys
 import json
 from map_annotation import TaggedMap
+import tf.transformations
 
 
 try:
@@ -18,7 +19,8 @@ tag_pose = {}
 for tag in all_tags:
     x, y, t, _, _, _, = tag_map._get_scatter_points(state=tag, limit=0.3)
     coords = zip(x, y, t)
-    tag_pose[tag] = coords[0]
+    quad = tf.transformations.quaternion_from_euler(0, 0, coords[0][2])
+    tag_pose[tag] = list(coords[0][:2]) + list(quad)[-2:]
 
 with open(json_file, "w") as output:
     json.dump(tag_pose, output)
